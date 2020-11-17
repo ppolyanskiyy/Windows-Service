@@ -126,8 +126,8 @@ bool Service::Install()
 	};
 
 	handle_SCM = OpenSCManager(
-		nullptr,					// Local Machine
-		nullptr,					// By default Database 
+		nullptr,			// Local Machine
+		nullptr,			// By default Database 
 		SC_MANAGER_ALL_ACCESS);		// Access Right
 
 	if (!handle_SCM)
@@ -138,18 +138,18 @@ bool Service::Install()
 	else
 	{
 		handle_service = CreateService(
-			handle_SCM,										// SCM Handle
+			handle_SCM,					// SCM Handle
 			Service::get_instance().s_service_name.c_str(), // Service Name
 			Service::get_instance().s_service_name.c_str(),	// Display Name			
-			SERVICE_ALL_ACCESS,								// Access Right
-			SERVICE_WIN32_OWN_PROCESS,						// Service Type
-			SERVICE_DEMAND_START,							// Service Start Type
-			SERVICE_ERROR_NORMAL,							// Service Error Code
-			path,											// Path to .exe
-			nullptr,									    // Load ordering group
+			SERVICE_ALL_ACCESS,				// Access Right
+			SERVICE_WIN32_OWN_PROCESS,			// Service Type
+			SERVICE_DEMAND_START,				// Service Start Type
+			SERVICE_ERROR_NORMAL,				// Service Error Code
+			path,						// Path to .exe
+			nullptr,				    	// Load ordering group
 			nullptr,                                        // Tag ID
-			nullptr,	                                    // Dependencies
-			nullptr,						                // Service start name (account)
+			nullptr,	                                // Dependencies
+			nullptr,					// Service start name (account)
 			nullptr);                                       // Password
 
 		bool is_created = true;
@@ -176,8 +176,8 @@ bool Service::Start()
 	SC_HANDLE open_service = nullptr;
 
 	open_SCM = OpenSCManager(
-		nullptr,					// Local Machine
-		nullptr,					// By default Database (SERVICES_ACTIVE_DATABASE)
+		nullptr,			// Local Machine
+		nullptr,			// By default Database (SERVICES_ACTIVE_DATABASE)
 		SC_MANAGER_ALL_ACCESS);		// Access Right
 
 	if (!open_SCM)
@@ -189,9 +189,9 @@ bool Service::Start()
 	bool is_opened = true, is_started = true;
 
 	open_service = OpenService(
-		open_SCM,											// SCM Handle
+		open_SCM,						// SCM Handle
 		Service::get_instance().s_service_name.c_str(),		// Service Name
-		SC_MANAGER_ALL_ACCESS);								// Access Right
+		SC_MANAGER_ALL_ACCESS);					// Access Right
 
 	if (!open_service)
 	{
@@ -214,7 +214,6 @@ bool Service::Start()
 	}
 	CloseServiceHandle(open_SCM);
 	return is_opened && is_started;
-
 }
 
 bool Service::Stop()
@@ -224,8 +223,8 @@ bool Service::Stop()
 	SC_HANDLE open_service = nullptr;
 
 	open_SCM = OpenSCManager(
-		nullptr,					// Local Machine
-		nullptr,					// By default Database (SERVICES_ACTIVE_DATABASE)
+		nullptr,			// Local Machine
+		nullptr,			// By default Database (SERVICES_ACTIVE_DATABASE)
 		SC_MANAGER_ALL_ACCESS);		// Access Right
 
 	if (!open_SCM)
@@ -237,9 +236,9 @@ bool Service::Stop()
 	bool is_opened = true, is_stopped = true;
 
 	open_service = OpenService(
-		open_SCM,											// SCM Handle
+		open_SCM,						// SCM Handle
 		Service::get_instance().s_service_name.c_str(),		// Service Name
-		SC_MANAGER_ALL_ACCESS);								// Access Right
+		SC_MANAGER_ALL_ACCESS);					// Access Right
 
 	if (!open_service)
 	{
@@ -291,8 +290,8 @@ bool Service::Uninstall()
 	SC_HANDLE handle_service = nullptr;
 
 	handle_SCM = OpenSCManager(
-		nullptr,					// Local Machine
-		nullptr,					// By default Database (SERVICES_ACTIVE_DATABASE)
+		nullptr,			// Local Machine
+		nullptr,			// By default Database (SERVICES_ACTIVE_DATABASE)
 		SC_MANAGER_ALL_ACCESS);		// Access Right
 
 	if (!handle_SCM)
@@ -304,9 +303,9 @@ bool Service::Uninstall()
 	bool is_opened = true, is_deleted = true;
 
 	handle_service = OpenService(
-		handle_SCM,										// SCM Handle
+		handle_SCM,					// SCM Handle
 		Service::get_instance().s_service_name.c_str(), // Service Name
-		SERVICE_ALL_ACCESS);							// Access Right
+		SERVICE_ALL_ACCESS);				// Access Right
 
 	if (!handle_service)
 	{
